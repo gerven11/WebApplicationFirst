@@ -18,10 +18,11 @@ namespace WebApplicationFirst.Controllers
         public ActionResult Index()
         {
             var 客戶聯絡人 = db.客戶聯絡人.Include(客 => 客.客戶資料);
-            return View(客戶聯絡人.ToList());
+            return View(客戶聯絡人.Where(p => false == p.是否已刪除).ToList());
         }
 
         // GET: 客戶聯絡人/Details/5
+        //Detail 尚未修改(因為如果id輸入正確，還是進的去)
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -115,7 +116,8 @@ namespace WebApplicationFirst.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             客戶聯絡人 客戶聯絡人 = db.客戶聯絡人.Find(id);
-            db.客戶聯絡人.Remove(客戶聯絡人);
+            //db.客戶聯絡人.Remove(客戶聯絡人);
+            客戶聯絡人.是否已刪除 = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
