@@ -20,9 +20,16 @@ namespace WebApplicationFirst.Controllers
         }
 
         // GET: 客戶資料
-        public ActionResult Index()
+        public ActionResult Index(string keywords)
         {
-            return View(db.客戶資料.Where(p => false == p.是否已刪除).ToList());
+            var data = db.客戶資料.Where(p => false == p.是否已刪除).AsQueryable();
+
+            if (!String.IsNullOrEmpty(keywords))
+            {
+                data = data.Where(p => p.客戶名稱.Contains(keywords));
+            }
+
+            return View(data.ToList());
         }
 
         // GET: 客戶資料/Details/5
