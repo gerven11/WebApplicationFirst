@@ -14,6 +14,11 @@ namespace WebApplicationFirst.Controllers
     {
         private 客戶資料Entities db = new 客戶資料Entities();
 
+        public ActionResult 客戶關聯表()
+        {
+            return View(db.vw客戶關聯表.ToList());
+        }
+
         // GET: 客戶資料
         public ActionResult Index()
         {
